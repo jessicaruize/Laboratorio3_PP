@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         body 
+        {
+            font-family: 'Open Sans';
+            background-color:#3e214c;
+            font-weight: 200;
+            color: rgb(182, 158, 158);
+        }
+
+
+        .botones
+        {
+            min-width: 70px;
+            height: 30px;
+            color: black;
+            padding: 3px 7px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+            outline: none;
+            border: none;
+            background: pink;
+            box-shadow: rgb(64, 61, 93)2c0b8e;
+        }
+
+        .botones:hover 
+        {
+            box-shadow: 0 3px #5b4f80;
+            top: 1px;
+        }
+
+        .botones:active 
+        {
+            box-shadow: 0 0 #8c75d1;
+            top: 5px;
+        }
+
+        .titulo 
+        {
+            font-size:3em; 
+            font-weight: 300;
+            line-height:1em;
+            text-align: left;
+            color: #dac1dc;
+        }
+
+        .datos
+        {
+            text-align: left;
+            overflow: hidden;
+            width: 90%;
+            margin: 0 auto;
+            display: table;
+            
+        }
+
+        .tabla 
+        {
+            display: table;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .tabla .cabecera
+        {
+            display: table;
+            font-weight: bold;
+            font-size: 1em;
+            text-align: left;
+            color: #FB667A;
+            background-color: transparent;
+            border: none;
+            
+        }
+
+        .tabla .cabecera:hover 
+        {
+            background-color: #464A52;
+            -webkit-box-shadow: 0 6px 6px -6px #0E1119;
+            -moz-box-shadow: 0 6px 6px -6px #0E1119;
+            box-shadow: 0 6px 6px -6px #0E1119;
+        }
+
+        .tabla th 
+        {
+            font-weight: bold;
+            font-size: 1em;
+            text-align: left;
+            color: #185875;
+        }
+
+
+        .tabla td 
+        {
+            font-weight: normal;
+            font-size: 1em;
+            -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+            -moz-box-shadow: 0 2px 2px -2px #0E1119;
+            box-shadow: 0 2px 2px -2px #0E1119;
+        }
+
+
+        .tabla td, .tabla th 
+        {
+            padding-bottom: 2%;
+            padding-top: 2%;
+            padding-left:2%;  
+        }
+
+
+        .tabla td:first-child 
+        { 
+            color: #FB667A; 
+        }
+
+        .tabla tr:hover 
+        {
+            background-color: #464A52;
+            -webkit-box-shadow: 0 6px 6px -6px #0E1119;
+            -moz-box-shadow: 0 6px 6px -6px #0E1119;
+            box-shadow: 0 6px 6px -6px #0E1119;
+        }
+
+
+        form
+        {
+            color: #A7A1AE;
+            background-color: rgb(29, 12, 15);
+            border-radius: 15px;
+            padding: 20px;
+            border: 5px solid black;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="datos" class="datos">
+        <form id="formDatos" action="get">
+            <h1 class="titulo">Form Datos</h1><br>
+            <label>Filtrar por: </label>
+            <select name="tipo" id="tipo">
+                <option value="todos" selected="selected">Todos</option>
+                <option value="aereo">Aereo</option>
+                <option value="terrestre">Terrestre</option>
+            </select><br>
+            <input type="checkbox" checked id="Id" name="checkbox" class = checkbox>
+            <label>id</label>
+            <input type="checkbox" checked id="Modelo" name="checkbox" class = checkbox>
+            <label>modelo</label>
+            <input type="checkbox" checked id="AnoFab" name="checkbox" class = checkbox>
+            <label>a&ntilde;o fab</label>
+            <input type="checkbox" checked id="VelMax" name="checkbox" class = checkbox>
+            <label>vel max</label>
+            <input type="checkbox" checked id="AltMax" name="checkbox" class = checkbox>
+            <label>alt max</label>
+            <input type="checkbox" checked id="Autonomia" name="checkbox" class = checkbox>
+            <label>autonomía</label>
+            <input type="checkbox" checked id="CantPue" name="checkbox" class = checkbox>
+            <label>cant pue</label>
+            <input type="checkbox" checked id="CantRue" name="checkbox" class = checkbox>
+            <label>cant rue</label><br>
+            <label>Promedio Velocidad Maxima:</label>
+            <input type="text" id="txtPromedioVelMax" readonly>
+            <input type="button" value="Calcular" id="btnCalcular" class="botones"><br>
+            <table id="tabla" class="tabla">
+            </table>
+            <input type="button" value="Agregar" id="btnAgregar" class="botones">
+        </form>
+    </div>  
+
+    
+    <div id="divABM" >  
+        <form id="formABM" class="ABM" method="post">
+            <h2>Form ABM</h2>
+            <label>ID:</label><br>
+            <input type="text" id="txtId"><br>
+            <label>Modelo:</label><br>
+            <input type="text" id="txtModelo" required><br>
+            <label>a&ntilde;o Fabricación:</label><br>
+            <input type="text" id="txtAnoFab" required><br>
+            <label>Velocidad Maxima:</label><br>
+            <input type="text" id="txtVelMax" required><br>
+            <label>Tipo:</label>
+            <select name="tipoABM" id="tipoABM" required>
+                <option value = "aereo" selected="selected">Aereo</option>
+                <option value = "terrestre">Terrestre</option>
+            </select>
+            <div id="aereoDiv">
+                <br>
+                <label id="lblAltMax">altura Maxima:</label>
+                <br>
+                <input type="text" id="txtAltMax">
+                
+                <br>
+                <label id="lblAutonomia">Autonomia:</label>
+                <br>
+                <input type="number" id="txtAutonomia" >
+            </div>
+            
+            <div id="terrestreDiv">
+                <br>
+                <label id="lblCantPue">Cantidad Puertas:</label>
+                <br>
+                <input type="text" id="txtCantPue">
+
+                <br>
+                <label id="lblcantRue">cantidad Ruedas:</label>
+                <br>
+                <input type="number" id="txtcantRue">
+            </div>
+
+            <br>
+            <input type="submit" id="btnAgregarAlta" value="Agregar" class="botones">
+            <input type="button" id="btnModificar" value="Modificar" class="botones">
+            <input type="button" id="btnEliminar" value="Eliminar" class="botones">
+            <input type="button" id="btnCancelar" value="Cancelar" class="botones">
+        </form>
+    
+    </div>
+
+    <script>
+        
+    class Vehiculo
+    { 
+        constructor(id, modelo, anoFab, velMax)
+        {
+            this.id = id;
+            this.modelo = modelo;
+            this.anoFab = anoFab;
+            this.velMax = velMax;
+
+        }
+
+        toString()
+        {
+            let string = this.id + ' ' + this.modelo + ' ' + this.anoFab + ' ' + this.velMax;
+            return string;
+        }
+    }
+
+    class Aereo extends Vehiculo
+    {
+        constructor(id, modelo, anoFab, velMax, altMax, autonomia)
+        {
+            super(id, modelo, anoFab, velMax);
+            this.altMax = altMax;
+            this.autonomia = autonomia;
+        }
+
+        toString()
+        {
+            let string = super.toString() + ' ' +  this.altMax + ' ' + this.autonomia;
+            return string;
+        }
+    }
+
+    class Terrestre extends Vehiculo
+    {
+        constructor(id, modelo, anoFab, velMax, cantPue, cantRue)
+        {
+            super(id, modelo, anoFab, velMax);
+            this.cantRue = cantRue;
+            this.cantPue = cantPue;
+        }
+
+        toString()
+        {
+            let string = super.toString() + ' ' + this.cantPue + ' ' + this.cantRue;
+            return string;
+        }
+    }
+    
+    function CrearTabla()
+    {
+        console.log("hola");
+        if(document.getElementById("divABM").style.display == "block")
+        {
+            document.getElementById("divABM").style.display = "none";
+        }
+
+        EliminarTabla();
+        let tabla = document.getElementById("tabla");        
+        let thead = document.createElement("thead");
+        let tbody = document.createElement("tbody");
+        let checkBoxs = document.getElementsByName("checkbox");       
+        tbody.id = "tbody"; 
+        tabla.appendChild(thead);
+        tabla.appendChild(tbody);
+        for(let i = 0; i < 8; i++)
+        {
+            if(checkBoxs[i].checked)
+            {
+                let th = document.createElement("th");
+                let boton = document.createElement("input");
+                boton.type = "button";
+                boton.value = checkBoxs[i].id;
+                boton.id = "btn" + checkBoxs[i].id;
+                boton.className = "cabecera";
+                boton.addEventListener("click", OrdenarLista);
+                th.appendChild(boton); 
+                thead.appendChild(th);
+            }
+        }
+        let select = document.getElementById("tipo");
+        for(let i = 0; i < aObj.length; i++)
+        {
+            if(select.value == 'aereo' && aObj[i] instanceof Aereo)
+            {
+                CrearFila(tbody, aObj[i]);
+            }else 
+            {
+                if(select.value == 'terrestre' && aObj[i] instanceof Terrestre)
+                {
+                    CrearFila(tbody, aObj[i]);
+                }
+                else
+                {
+                    if(select.value == 'todos')
+                    {
+                        CrearFila(tbody, aObj[i]);
+                    }
+                }
+            }
+        }
+    }
+
+    function CrearFila(tbody, obj)
+    {
+        let checkBoxs = document.getElementsByName("checkbox");
+        let datos = [parseInt(obj['id']), obj['modelo'], obj['anoFab'], obj['velMax'], obj['altMax'], obj['autonomia'], obj['cantPue'], obj['cantRue'] ];
+        let tr = document.createElement("tr");
+        tr.addEventListener("dblclick", Modificar);
+        let arrayTd = new Array();
+        for(let i = 0; i < 8; i++)
+        {
+            arrayTd.push(document.createElement("td"));
+        }
+        for(let i = 0; i < arrayTd.length; i++)
+        {
+            if(!(typeof datos[i] == 'undefined'))
+            {
+                    arrayTd[i].textContent = datos[i];
+            }else
+            {
+                    arrayTd[i].textContent = "N/A";
+            }
+        }
+        for(let i = 0; i < 8; i++)
+        {
+            if(checkBoxs[i].checked)
+            {
+                tr.appendChild(arrayTd[i]);
+            }
+        }
+        tbody.appendChild(tr);
+    }  
+
+    function LoadEvent()
+    {
+        let checkBoxs = document.getElementsByName("checkbox");
+        let select = document.getElementById("tipo");
+        let btnCalcular = document.getElementById("btnCalcular");
+        let btnAgregar = document.getElementById("btnAgregar");
+        let btnAgregarAlta = document.getElementById("btnAgregarAlta");
+        let selectABM = document.getElementById("tipoABM");
+        let btnCancelar = document.getElementById("btnCancelar");
+        let btnEliminar = document.getElementById("btnEliminar");
+        let btnModificar = document.getElementById("btnModificar");
+        console.log(select);
+        select.addEventListener("change", CrearTabla);
+        btnCalcular.addEventListener("click", CalcularVelocidadMaxima);
+        btnAgregar.addEventListener("click", MostrarOcultar);
+        btnAgregarAlta.addEventListener("click", AgregarVehiculo);
+        selectABM.addEventListener("change", ChangeSelect);
+        btnCancelar.addEventListener("click", MostrarOcultar);
+        btnEliminar.addEventListener("click", EliminarVehiculo);
+        btnModificar.addEventListener("click", ModificarVehiculo);
+
+        for(let i = 0; i < 8; i++)
+        {
+            checkBoxs[i].addEventListener("click", CrearTabla);
+        }
+    }
+    
+    function OrdenarLista()
+    {
+        let th = event.target.parentNode;
+        let hijos = th.children;
+
+        if(hijos[0]['id'] == "btnId")  
+        {
+            OrdenarPorID();
+        }
+
+        if(hijos[0]['id'] == "btnModelo")
+        {
+            OrdenarPorModelo();
+        }
+
+        if(hijos[0]['id'] == "btnAnoFab")
+        {
+            OrdenarPorAnoFab();
+        }
+
+        if(hijos[0]['id'] == "btnVelMax")
+        {
+            OrdenarPorVelMax();
+        }
+
+        if(hijos[0]['id'] == "btnAltMax")
+        {
+            OrdenarPorAltMax();
+        }
+
+        if(hijos[0]['id'] == "btnAutonomia")
+        {
+            OrdenarPorAutonomia();
+        }
+
+        if(hijos[0]['id'] == "btnCantPue")
+        {
+            OrdenarPorCantPue();
+        }
+
+        if(hijos[0]['id'] == "btnCantRue")
+        {
+            OrdenarPorCantRue();
+        }
+    }
+
+    function CalcularVelocidadMaxima()
+    {
+        let textBox = document.getElementById("txtPromedioVelMax");
+        let select = document.getElementById("tipo");
+        let tbody = document.getElementById("tbody");
+        let tr = tbody.children;
+        let suma = 0;
+        if(select.value == 'aereo')
+        {
+            let aereo = aObj.filter(aObj => aObj.hasOwnProperty('altMax'));
+            aereo.forEach(el => 
+                {
+                    suma += parseFloat(el.velMax);
+                });
+        }
+        else
+        {
+            if(select.value == "terrestre")
+            {
+                let terrestre = aObj.filter(aObj => aObj.hasOwnProperty('cantPue'));
+                terrestre.forEach(el => 
+                {
+                    suma += parseFloat(el.velMax);
+                });
+            }else
+            {
+                aObj.forEach(el => 
+                {
+                    suma += parseFloat(el.velMax);
+                });
+            }
+        }
+        textBox.value = suma / tbody.childElementCount;
+    }
+
+    function EliminarTabla()
+    {
+        let tabla = document.getElementById("tabla");
+        let textBox = document.getElementById("txtPromedioVelMax").value = 0;
+        let cant = tabla.childElementCount;
+        for(let i = 0; i < cant; i++)
+        {
+            tabla.removeChild(tabla.lastChild);
+        }
+    }
+
+    function Modificar()
+    {   document.getElementById("btnAgregarAlta").style.display = "none"; 
+        document.getElementById("formABM").style.display = "block";
+
+        let tr = event.target.parentNode;
+        let txtId = document.getElementById("txtId");
+        let txtModelo = document.getElementById("txtModelo");
+        let txtAnoFab = document.getElementById("txtAnoFab");
+        let txtVelMax = document.getElementById("txtVelMax");
+        let txtAltMax = document.getElementById("txtAltMax");
+        let txtAutonomia = document.getElementById("txtAutonomia");
+        let txtCantPue = document.getElementById("txtCantPue");
+        let txtCantRue = document.getElementById("txtCantRue");
+        
+
+        let selectTipo = document.getElementById("tipo");
+        let selectABM = document.getElementById("tipoABM");
+
+        selectABM.disabled = true;
+        let datos = [txtId, txtModelo, txtAnoFab, txtVelMax, txtAltMax, txtAutonomia, txtCantPue, txtCantRue];
+        
+
+        if(selectTipo.value == 'aereo')
+        {
+            selectABM.value = 'aereo';
+        }else
+        {
+            if(selectTipo.value == 'terrestre')
+            {
+                selectABM.value = 'terrestre';
+            }
+            else
+            {
+                if(selectTipo.value == 'todos')
+                {
+                    if(tr.children[4].innerHTML == 'N/A')
+                    {
+                        selectABM.value = 'aereo';
+                        
+                    }else
+                    {
+                        selectABM.value = 'terrestre';
+                    }
+                }
+            }
+        }
+
+        ChangeSelect();
+        datos[0].readOnly = true;
+        for(let i = 0; i < 8; i++)
+        {
+            console.log(tr.children[i].innerHTML);  
+            datos[i].value = tr.children[i].innerHTML;
+            
+        }
+        document.getElementById("btnAgregarAlta").style.display = "block"; 
+    }
+
+    function ChangeSelect()
+    {
+        let select = document.getElementById("tipoABM");
+        if(select.value == 'aereo')
+        {
+            document.getElementById("terrestreDiv").style.display = "none";
+            document.getElementById("aereoDiv").style.display = "block";
+        }else
+        {
+            document.getElementById("aereoDiv").style.display = "none";
+            document.getElementById("terrestreDiv").style.display = "block";
+        }
+    }
+
+    function MostrarOcultar()
+    {
+        let id = 0
+        LimpiarForm();
+        document.getElementById("txtId").readOnly = true;
+        let form = document.getElementById("formABM");
+        document.getElementById("tipoABM").disabled = false;
+        ChangeSelect();
+        if(form.style.display == "none")
+        {
+            form.style.display = "block";
+        }
+        else
+        {
+            form.style.display = "none";
+        }
+    }
+
+    function LimpiarForm()
+    {
+        let txtId = document.getElementById("txtId");
+        txtId.value = "";
+        txtId.readOnly = false;
+        document.getElementById("txtModelo").value = "";
+        document.getElementById("txtAnoFab").value = "";
+        document.getElementById("txtVelMax").value = "";
+        document.getElementById("txtAltMax").value = "";
+        document.getElementById("txtAutonomia").value = "";
+        document.getElementById("txtCantPue").value = "";
+        document.getElementById("txtCantRue").value = "";
+    }
+
+    function OrdenarPorID()
+    {
+        aObj.sort((a,b) =>
+        {
+                if(a.id > b.id)
+                {
+                    return 1;
+                }else if( a.id == b.id)
+                {
+                    return 0;
+                }else
+                {
+                    return -1;
+                }
+        })
+        CrearTabla();
+    }
+
+    function OrdenarPorModelo()
+    {
+        aObj.sort((a,b) =>
+        {
+                if(a.modelo > b.modelo)
+                {
+                    return 1;
+                }else if( a.modelo == b.modelo)
+                {
+                    return 0;
+                }else
+                {
+                    return -1;
+                }
+        })
+        CrearTabla();
+    }
+
+    function OrdenarPorAnoFab()
+    {
+        aObj.sort( (a, b) => 
+        {
+            if(a.anoFab > b.anoFab)
+            {
+                return 1;
+            }else if(a.anoFab == b.anoFab)
+            {
+                return 0;
+            }else
+            {
+                return -1;
+            }
+        });
+        CrearTabla();
+    }
+
+    function OrdenarPorVelMax()
+    {
+        aObj.sort( (a, b) => 
+        {
+            if(a.velMax > b.velMax)
+            {
+                return 1;
+            }else if(a.velMax == b.velMax)
+            {
+                return 0;
+            }else
+            {
+                return -1;
+            }
+        });
+        CrearTabla();
+    }
+
+    function OrdenarPorAltMax()
+    {
+        aObj.sort( (a, b) => 
+        {
+            if(a.altMax)
+            {
+                if(a.altMax > b.altMax)
+                {
+                    return 1;
+                }else if(a.altMax == b.altMax)
+                {
+                    return 0;
+                }else
+                {
+                    return -1;
+                }
+            }
+        });
+        CrearTabla();
+    }
+
+    function OrdenarPorAutonomia()
+    {
+        aObj.sort( (a, b) => 
+        {
+            if(a.autonomia)
+            {
+                if(a.autonomia > b.autonomia)
+                {
+                    return 1;
+                }else if(a.autonomia == b.autonomia)
+                {
+                    return 0;
+                }else
+                {
+                    return -1;
+                }
+            }
+        });
+        CrearTabla();
+    }
+
+    function OrdenarPorCantPue()
+    {
+        aObj.sort( (a, b) => 
+        {
+            if(a.cantPue)
+            {
+                if(a.cantPue > b.cantPue)
+                {
+                    return 1;
+                }else if(a.cantPue == b.cantPue)
+                {
+                    return 0;
+                }else
+                {
+                    return -1;
+                }
+            }
+        });
+        CrearTabla();
+    }
+
+    function OrdenarPorCantRue()
+    {
+        aObj.sort( (a, b) => 
+        {
+            if(a.año)
+            {
+                if(a.cantRue > b.cantRue)
+                {
+                    return 1;
+                }else if(a.cantRue == b.cantRue)
+                {
+                    return 0;
+                }else
+                {
+                    return -1;
+                }
+            }
+        });
+        CrearTabla();
+    }
+
+    function AgregarVehiculo()
+    {
+        document.getElementById("btnEliminar").style.display = "none";
+        document.getElementById("btnModificar").style.display = "none";
+        let form = document.getElementById("formABM");
+        event.preventDefault();
+        let id = form['txtId'].value;
+        let modelo = form['txtModelo'].value;
+        let anofab = form['txtAnoFab'].value;
+        let velMax = form['txtVelMax'].value;
+        let tipo = form['tipoABM'].value;
+        let altMax = form['txtAltMax'].value;
+        let autonomia = form['txtAutonomia'].value;
+        let cantPue = form['txtCantPue'].value;
+        let cantRue = form['txtcantRue'].value;
+
+        if(modelo && anofab)
+        {
+            if(tipo == 'aereo')
+            {   
+                if(altMax && autonomia)
+                {
+                    let vAereo = new Aereo(id, modelo, anofab, velMax, velMax, autonomia);
+                    aObj.push(vAereo);
+                    console.log(vAereo.toString());
+                    CrearTabla();  
+                }else
+                {
+                    alert("Campos incompletos.");
+                }
+            }else
+            {
+                if(cantPue && cantRue)
+                {
+                    let vTerrestre = new Terrestre(id, modelo, anofab, velMax, cantPue, cantRue);
+                    aObj.push(vTerrestre);  
+                    console.log(vTerrestre.toString());
+                    CrearTabla();  
+                }else
+                {
+                    alert("Campos incompletos.");
+                }
+            }
+        }
+        else
+        {
+            alert("Campos incompletos");
+        }
+
+        MostrarOcultar();
+        document.getElementById("btnEliminar").style.display = "block";
+        document.getElementById("btnModificar").style.display = "block";
+    }
+
+    function ModificarVehiculo()
+    {
+        document.getElementById("btnAgregarAlta").style.display = "none"; 
+        let form = document.getElementById("formABM");
+        let id = form['txtId'].value;
+        let modelo = form['txtModelo'].value;
+        let anofab = form['txtAnoFab'].value;
+        let velMax = form['txtVelMax'].value;
+        let tipo = form['tipoABM'].value;
+        let altMax = form['txtAltMax'].value;
+        let autonomia = form['txtAutonomia'].value;
+        let cantPue = form['txtCantPue'].value;
+        let cantRue = form['txtcantRue'].value;
+
+        if(id && modelo && anofab && modelo)
+        {
+            for(let i = 0 ; i < aObj.length; i++)
+            {
+                if(id == aObj[i].id)
+                {
+                    aObj[i].modelo = modelo;
+                    aObj[i].anofab = anofab;
+                    aObj[i].velMax = velMax;
+                    
+                    if(tipo == 'aereo')
+                    {
+                        if(altMax && autonomia)
+                        {
+                            aObj[i].altMax = altMax;
+                            aObj[i].autonomia = autonomia;
+                            CrearTabla();
+                        }else
+                        {
+                            alert("Campos incompletos");
+                        }
+                    }
+                    else
+                    {
+                        if(cantPue && cantRue)
+                        {
+                            aObj[i].cantPue = cantPue;
+                            aObj[i].cantRue = cantRue;
+                            CrearTabla();
+                        }else
+                        {
+                            alert("Campos incompletos");
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            alert("Campos incompletos");
+        }
+
+        MostrarOcultar();
+        document.getElementById("btnAgregarAlta").style.display = "block";
+    }
+   
+    function EliminarVehiculo()
+    {
+        document.getElementById("btnAgregarAlta").style.display = "none";
+        let txtID = document.getElementById("txtId");
+        for(let i = 0; i < aObj.length; i++)
+        {
+            if(aObj[i].id == txtID.value)
+            {
+                aObj.splice(i, 1);
+                CrearTabla();
+            }
+        }
+        MostrarOcultar();
+        document.getElementById("btnAgregarAlta").style.display = "block";
+    }
+    let aJson = JSON.parse('[{"id":14, "modelo":"Ferrari F100", "anoFab":1998, "velMax":400, "cantPue":2, "cantRue":4},{"id":51, "modelo":"Dodge Viper", "anoFab":1991, "velMax":266, "cantPue":2, "cantRue":4},{"id":67, "modelo":"Boeing CH-47 Chinook", "anoFab":1962, "velMax":302, "altMax":6, "autonomia":1200},{"id":666, "modelo":"Aprilia RSV 1000 R", "anoFab":2004, "velMax":280, "cantPue":0, "cantRue":2},{"id":872, "modelo":"Boeing 747-400", "anoFab":1989, "velMax":988, "altMax":13, "autonomia":13450},{"id":742, "modelo":"Cessna CH-1 SkyhookR", "anoFab":1953, "velMax":174, "altMax":3, "autonomia":870}]')
+    let aObj  = aJson.map(function(obj) 
+    {
+        if(obj.hasOwnProperty('cantPue'))
+        {
+            return new Terrestre(obj.id, obj.modelo, obj.anoFab, obj.velMax, obj.cantPue, obj.cantRue);
+        }else
+        {
+            return new Aereo(obj.id, obj.modelo, obj.anoFab, obj.velMax, obj.altMax, obj.autonomia);
+        }
+    }, aJson);
+    console.log(document.getElementsByClassName("ABM"));
+    let formulario = document.getElementsByClassName("ABM");
+    //console.log(form);
+    //formulario.style.display = "none";
+
+    LoadEvent();
+    CrearTabla();
+
+    </script>
+</body>
+</html>
